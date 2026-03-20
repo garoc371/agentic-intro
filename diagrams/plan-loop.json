@@ -1,0 +1,167 @@
+{
+  "elements": [
+    { "type": "cameraUpdate", "width": 1200, "height": 900, "x": 0, "y": 0 },
+    {
+      "type": "rectangle",
+      "id": "plan-zone",
+      "x": 40,
+      "y": 130,
+      "width": 1120,
+      "height": 560,
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "strokeWidth": 1,
+      "opacity": 22,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "text",
+      "id": "plan-caption",
+      "x": 72,
+      "y": 162,
+      "text": "Plan mode: research first, then hand off after review",
+      "fontSize": 26,
+      "strokeColor": "#154c79"
+    },
+    {
+      "type": "rectangle",
+      "id": "plan-task",
+      "x": 70,
+      "y": 310,
+      "width": 170,
+      "height": 100,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "roundness": { "type": 3 },
+      "label": { "text": "Task to\nplan", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "plan-research",
+      "x": 330,
+      "y": 230,
+      "width": 240,
+      "height": 120,
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "Read-only\nresearch", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "plan-draft",
+      "x": 640,
+      "y": 230,
+      "width": 240,
+      "height": 120,
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "strokeColor": "#8b5cf6",
+      "roundness": { "type": 3 },
+      "label": { "text": "Plan draft:\nsteps + checks\n+ open questions", "fontSize": 24 }
+    },
+    {
+      "type": "rectangle",
+      "id": "plan-review",
+      "x": 960,
+      "y": 240,
+      "width": 150,
+      "height": 100,
+      "backgroundColor": "#c3fae8",
+      "fillStyle": "solid",
+      "strokeColor": "#0f766e",
+      "roundness": { "type": 3 },
+      "label": { "text": "Review and\nhandoff", "fontSize": 24 }
+    },
+    {
+      "type": "rectangle",
+      "id": "plan-questions",
+      "x": 330,
+      "y": 520,
+      "width": 240,
+      "height": 100,
+      "backgroundColor": "#ffd8a8",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "Clarifying\nquestions", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "plan-safety",
+      "x": 640,
+      "y": 520,
+      "width": 260,
+      "height": 100,
+      "backgroundColor": "#ffc9c9",
+      "fillStyle": "solid",
+      "strokeColor": "#ef4444",
+      "roundness": { "type": 3 },
+      "label": { "text": "No code changes\nbefore approval", "fontSize": 26 }
+    },
+    {
+      "type": "arrow",
+      "id": "plan-a1",
+      "x": 240,
+      "y": 360,
+      "width": 90,
+      "height": -70,
+      "points": [[0, 0], [50, 0], [90, -70]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "plan-a2",
+      "x": 570,
+      "y": 290,
+      "width": 70,
+      "height": 0,
+      "points": [[0, 0], [70, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "plan-a3",
+      "x": 880,
+      "y": 290,
+      "width": 80,
+      "height": 0,
+      "points": [[0, 0], [80, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "plan-a4",
+      "x": 410,
+      "y": 350,
+      "width": 0,
+      "height": 170,
+      "points": [[0, 0], [0, 170]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "plan-loop",
+      "x": 490,
+      "y": 520,
+      "width": 0,
+      "height": -170,
+      "points": [[0, 0], [0, -170]],
+      "endArrowhead": "arrow",
+      "strokeStyle": "dashed",
+      "strokeColor": "#8b5cf6"
+    },
+    {
+      "type": "text",
+      "id": "plan-loop-label",
+      "x": 350,
+      "y": 635,
+      "text": "Research and refine until the plan is ready",
+      "fontSize": 20,
+      "strokeColor": "#8b5cf6"
+    }
+  ]
+}

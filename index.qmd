@@ -1,0 +1,282 @@
+---
+title: "From LLM Interaction Patterns to VS Code Chat Modes"
+subtitle: "Ask, Edit, Agent, and Plan through the lens of tools"
+date: 2026-03-19
+format:
+  revealjs:
+    slide-number: true
+    transition: fade
+    width: 1400
+    height: 900
+    margin: 0.04
+    controls: true
+    progress: true
+    embed-resources: true
+    css: styles.css
+---
+
+## Three interaction patterns
+
+::: {.mode-layout}
+::: {.mode-copy}
+Most LLM products fit one of three interaction patterns.
+
+- Plain chat: one user turn in, one model turn out.
+- Chat with tools: the model may pause to call something like search.
+- Full agentic loop: the model can search, act, inspect, and keep going until it reaches a stop condition.
+
+The practical difference is mostly the tool budget, and how much control you hand to the system between turns.
+:::
+
+::: {.mode-figure}
+![](assets/interaction-patterns.svg){width=100%}
+:::
+:::
+
+## Plain chat grows context
+
+::: {.mode-layout}
+::: {.mode-copy}
+Plain chat is still a loop, but it is a turn-based one.
+
+- Each new turn appends to the same conversation history.
+- Later responses are shaped by the earlier turns that remain in context.
+- The model can explain, compare, or draft, but it does not fetch new evidence on its own.
+
+This is the simplest mental model: the thread grows, and the next answer depends on that growing thread.
+:::
+
+::: {.mode-figure}
+![](assets/chat-thread.svg){width=100%}
+:::
+:::
+
+## Chat With Tools: search example
+
+::: {.mode-layout}
+::: {.mode-copy}
+Tool use turns one model response into a small internal loop.
+
+- The model emits a tool call such as `search(...)`.
+- The search results come back as structured tool output.
+- Those results are appended to the conversation, then the model continues with better evidence.
+
+The key difference is not a new kind of model. It is the extra tool-result message inserted into context.
+:::
+
+::: {.mode-figure}
+![](assets/chat-search.svg){width=100%}
+:::
+:::
+
+## Full agentic loop adds iteration
+
+::: {.callout}
+This is where "chat with tools" becomes a real agent loop:
+each `tool_result` is appended to `messages[]`, then the model is called again until the stop reason changes.
+:::
+
+::: {.full-loop-figure}
+![](assets/agent-loop-s01.svg)
+:::
+
+::: {.source-note}
+Adapted from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) and the interactive [s01 The Agent Loop](https://learn.shareai.run/en/s01/), then recreated locally for reliable RevealJS rendering.
+:::
+
+## What changes from mode to mode?
+
+::: {.hero}
+The core difference is not "how smart Copilot is."
+
+It is which tools the model can use, and how much freedom it has to use them.
+:::
+
+::: {.source-note}
+Deck built from official VS Code and GitHub Copilot documentation current on March 9, 2026, reviewed on March 19, 2026.
+:::
+
+## The picker is really a tool picker
+
+::: {.mode-cards}
+::: {.mode-card}
+**Ask**
+
+Read, search, explain, suggest.
+:::
+
+::: {.mode-card}
+**Edit**
+
+Controlled edits in a user-chosen working set.
+:::
+
+::: {.mode-card}
+**Agent**
+
+Search, edit, run commands, iterate, and use external tools.
+:::
+
+::: {.mode-card}
+**Plan**
+
+Research first, then produce a reviewed implementation plan.
+:::
+:::
+
+::: {.callout}
+For an intro audience, this is the clean mental model:
+Ask is answer-first, Edit is bounded editing, Agent is autonomous action, and Plan is read-only planning before action.
+:::
+
+::: {.source-note}
+VS Code now treats Edit as deprecated, so the three modern working styles are mainly Ask, Agent, and Plan. Edit still appears in older tutorials and some current IDE flows.
+:::
+
+## Compare the tool budgets
+
+::: {.matrix-wrap}
+| Default posture | Ask | Edit | Agent | Plan |
+|---|---|---|---|---|
+| Search and read the codebase | Yes. Agentic search and context gathering | Limited. Finds relevant context once | Yes. Repeats searches as needed | Yes. Read-only research |
+| Write files | No direct writes. You apply suggestions | Yes, but in the files you chose | Yes. It can choose files and edit them | No |
+| Run terminal commands or tests | Not the normal loop | No | Yes | No by default |
+| Use MCP or extension tools | Sometimes through tool mentions, but not the main posture | Not the point | Yes | Optional extra tools, but planning starts read-only |
+| Who decides the steps? | Mostly you | You choose files and steer each turn | The agent decides and iterates | The plan agent breaks the work down |
+| Main output | Explanation, options, code blocks | Proposed edits for review | Completed task progress plus edits and tool runs | A plan, checks, and open questions |
+:::
+
+::: {.source-note}
+Intro simplification: this table shows each mode's default posture, not every edge case.
+:::
+
+## Ask Mode
+
+::: {.mode-layout}
+::: {.mode-copy}
+Ask mode is best when you want understanding before action.
+
+- It automatically searches your workspace and gathers context.
+- It is good for explanations, options, and code suggestions.
+- The loop usually stops at "answer" rather than "act."
+- You stay responsible for applying any code changes.
+
+Use Ask for prompts like:
+
+- "Where is authentication configured in this project?"
+- "Show me two ways to refactor this parser."
+- "Explain this error in plain English."
+:::
+
+::: {.mode-figure}
+![](assets/ask-loop.svg){width=100%}
+:::
+:::
+
+## Edit Mode
+
+::: {.mode-layout}
+::: {.mode-copy}
+Edit mode is the narrowest editing mode.
+
+- It is useful when you already know the files you want to touch.
+- You choose the working set, then Copilot proposes edits there.
+- It does not run the wider autonomous search-and-fix loop.
+- Official docs mark it as deprecated in favor of Ask or Agent.
+
+Use Edit for prompts like:
+
+- "Rename these props in the two open components."
+- "Update this test file and its fixture, but nothing else."
+:::
+
+::: {.mode-figure}
+![](assets/edit-loop.svg){width=100%}
+:::
+:::
+
+## Agent Mode
+
+::: {.mode-layout}
+::: {.mode-copy}
+Agent mode is the full action loop.
+
+- It can search, edit, run commands, inspect problems, and iterate.
+- It is the mode built for multi-step work across several files.
+- It can also use MCP and extension-provided tools when enabled.
+- You still review approvals and results, but the agent does the legwork.
+
+Use Agent for prompts like:
+
+- "Implement OAuth login and wire the callback route."
+- "Fix the failing tests and update the snapshots."
+- "Refactor this feature and run the test suite."
+:::
+
+::: {.mode-figure}
+![](assets/agent-loop.svg){width=100%}
+:::
+:::
+
+## Plan Mode
+
+::: {.mode-layout}
+::: {.mode-copy}
+Plan mode is a research-and-breakdown loop.
+
+- It uses read-only analysis first.
+- It asks clarifying questions when the task is ambiguous.
+- It produces implementation steps, verification ideas, and open questions.
+- No code changes happen until you approve a handoff to implementation.
+
+Use Plan for prompts like:
+
+- "Plan a migration from REST calls to GraphQL."
+- "Break this feature into implementation and verification steps."
+- "Map the risks before we touch the billing flow."
+:::
+
+::: {.mode-figure}
+![](assets/plan-loop.svg){width=100%}
+:::
+:::
+
+## Fast chooser
+
+::: {.mode-cards}
+::: {.mode-card}
+**Pick Ask when...**
+
+you want explanations, options, or a fast read on the codebase.
+:::
+
+::: {.mode-card}
+**Pick Edit when...**
+
+you want tightly bounded edits in files you already selected.
+:::
+
+::: {.mode-card}
+**Pick Agent when...**
+
+you want the tool-using loop to keep going until the task is done.
+:::
+
+::: {.mode-card}
+**Pick Plan when...**
+
+you want a safe roadmap before any code changes happen.
+:::
+:::
+
+::: {.source-note}
+Sources:
+[learn-claude-code repository](https://github.com/shareAI-lab/learn-claude-code),
+[learn-claude-code interactive s01](https://learn.shareai.run/en/s01/),
+[VS Code workspace context](https://code.visualstudio.com/docs/copilot/reference/workspace-context),
+[VS Code tools](https://code.visualstudio.com/docs/copilot/concepts/tools),
+[VS Code local agents](https://code.visualstudio.com/docs/copilot/agents/local-agents),
+[VS Code planning](https://code.visualstudio.com/docs/copilot/agents/planning),
+[VS Code Copilot feature cheat sheet](https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features),
+[GitHub Docs chat in IDE](https://docs.github.com/en/copilot/how-tos/chat-with-copilot/chat-in-ide)
+:::

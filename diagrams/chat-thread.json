@@ -1,0 +1,144 @@
+{
+  "elements": [
+    { "type": "cameraUpdate", "width": 1200, "height": 900, "x": 0, "y": 0 },
+    {
+      "type": "rectangle",
+      "id": "thread-zone",
+      "x": 70,
+      "y": 90,
+      "width": 1060,
+      "height": 700,
+      "backgroundColor": "#fff8ea",
+      "fillStyle": "solid",
+      "strokeColor": "#d7cfc0",
+      "strokeWidth": 1,
+      "opacity": 32,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "rectangle",
+      "id": "thread-context",
+      "x": 250,
+      "y": 150,
+      "width": 620,
+      "height": 560,
+      "backgroundColor": "#ffffff",
+      "fillStyle": "solid",
+      "strokeColor": "#cbd5e1",
+      "strokeStyle": "dashed",
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "text",
+      "id": "thread-caption",
+      "x": 362,
+      "y": 175,
+      "text": "messages[] keeps growing with each turn",
+      "fontSize": 26,
+      "strokeColor": "#154c79"
+    },
+    {
+      "type": "rectangle",
+      "id": "thread-user-1",
+      "x": 350,
+      "y": 245,
+      "width": 420,
+      "height": 78,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "roundness": { "type": 3 },
+      "label": { "text": "User message", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "thread-lm-1",
+      "x": 350,
+      "y": 355,
+      "width": 420,
+      "height": 78,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeColor": "#22c55e",
+      "roundness": { "type": 3 },
+      "label": { "text": "LM response", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "thread-user-2",
+      "x": 350,
+      "y": 465,
+      "width": 420,
+      "height": 78,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "roundness": { "type": 3 },
+      "label": { "text": "User follow-up", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "thread-lm-2",
+      "x": 350,
+      "y": 575,
+      "width": 420,
+      "height": 78,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeColor": "#22c55e",
+      "roundness": { "type": 3 },
+      "label": { "text": "LM response", "fontSize": 28 }
+    },
+    {
+      "type": "arrow",
+      "id": "thread-a1",
+      "x": 560,
+      "y": 323,
+      "width": 0,
+      "height": 32,
+      "points": [[0, 0], [0, 32]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "thread-a2",
+      "x": 560,
+      "y": 433,
+      "width": 0,
+      "height": 32,
+      "points": [[0, 0], [0, 32]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "thread-a3",
+      "x": 560,
+      "y": 543,
+      "width": 0,
+      "height": 32,
+      "points": [[0, 0], [0, 32]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "thread-growth",
+      "x": 960,
+      "y": 215,
+      "width": 0,
+      "height": 420,
+      "points": [[0, 0], [0, 420]],
+      "endArrowhead": "arrow",
+      "strokeWidth": 4,
+      "strokeColor": "#8b5cf6"
+    },
+    {
+      "type": "text",
+      "id": "thread-growth-text",
+      "x": 985,
+      "y": 360,
+      "text": "Context grows\nover time",
+      "fontSize": 24,
+      "strokeColor": "#8b5cf6"
+    }
+  ]
+}

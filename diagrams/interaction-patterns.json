@@ -1,0 +1,108 @@
+{
+  "elements": [
+    { "type": "cameraUpdate", "width": 1200, "height": 900, "x": 0, "y": 0 },
+    {
+      "type": "rectangle",
+      "id": "patterns-zone",
+      "x": 70,
+      "y": 90,
+      "width": 1060,
+      "height": 700,
+      "backgroundColor": "#dbe4ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "strokeWidth": 1,
+      "opacity": 20,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "text",
+      "id": "patterns-caption",
+      "x": 165,
+      "y": 130,
+      "text": "Same model family, different tool freedom",
+      "fontSize": 28,
+      "strokeColor": "#154c79"
+    },
+    {
+      "type": "rectangle",
+      "id": "patterns-chat",
+      "x": 350,
+      "y": 200,
+      "width": 360,
+      "height": 110,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "roundness": { "type": 3 },
+      "label": { "text": "Chat only\nPrompt -> answer", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "patterns-tools",
+      "x": 350,
+      "y": 390,
+      "width": 360,
+      "height": 110,
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "Chat with tools\nPrompt -> tool -> answer", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "patterns-agent",
+      "x": 350,
+      "y": 580,
+      "width": 360,
+      "height": 110,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeColor": "#22c55e",
+      "roundness": { "type": 3 },
+      "label": { "text": "Full agentic loop\nSearch -> act -> inspect -> repeat", "fontSize": 26 }
+    },
+    {
+      "type": "arrow",
+      "id": "patterns-a1",
+      "x": 530,
+      "y": 310,
+      "width": 0,
+      "height": 80,
+      "points": [[0, 0], [0, 80]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "patterns-a2",
+      "x": 530,
+      "y": 500,
+      "width": 0,
+      "height": 80,
+      "points": [[0, 0], [0, 80]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "patterns-control",
+      "x": 900,
+      "y": 220,
+      "width": 0,
+      "height": 460,
+      "points": [[0, 0], [0, 460]],
+      "endArrowhead": "arrow",
+      "strokeWidth": 4,
+      "strokeColor": "#8b5cf6"
+    },
+    {
+      "type": "text",
+      "id": "patterns-control-text",
+      "x": 930,
+      "y": 360,
+      "text": "Decreasing\nhuman control",
+      "fontSize": 24,
+      "strokeColor": "#8b5cf6"
+    }
+  ]
+}

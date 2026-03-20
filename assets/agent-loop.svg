@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" role="img" aria-labelledby="title desc">
+  <title id="title">Agent mode loop</title>
+  <desc id="desc">Agent mode uses tools in a real work loop by searching, running tools, inspecting results, editing files, and repeating until done.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#374151" />
+    </marker>
+    <style>
+      .panel { fill: #eefaf0; stroke: #d5f1da; stroke-width: 2.2; }
+      .ink { fill: #154c79; font: 700 24px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; }
+      .box { stroke-width: 3; }
+      .boxtext { fill: #1f2937; font: 700 22px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; text-anchor: middle; }
+      .arrow { fill: none; stroke: #374151; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .note { fill: #8b5cf6; font: 700 18px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; }
+    </style>
+  </defs>
+
+  <rect class="panel" x="18" y="18" width="884" height="564" rx="28" />
+  <text class="ink" x="56" y="60">Agent mode: tools drive a real work loop</text>
+
+  <rect class="box" x="54" y="250" width="126" height="84" rx="18" fill="#a5d8ff" stroke="#4a9eed" />
+  <text class="boxtext" x="117" y="282">High-level</text>
+  <text class="boxtext" x="117" y="308">task</text>
+
+  <rect class="box" x="266" y="132" width="178" height="92" rx="18" fill="#fff3bf" stroke="#f59e0b" />
+  <text class="boxtext" x="355" y="168">Search and</text>
+  <text class="boxtext" x="355" y="194">read code</text>
+
+  <rect class="box" x="536" y="132" width="188" height="92" rx="18" fill="#ffd8a8" stroke="#f59e0b" />
+  <text class="boxtext" x="630" y="168">Run tools,</text>
+  <text class="boxtext" x="630" y="194">tests, or MCP</text>
+
+  <rect class="box" x="536" y="370" width="188" height="102" rx="18" fill="#d0bfff" stroke="#8b5cf6" />
+  <text class="boxtext" x="630" y="402">Inspect</text>
+  <text class="boxtext" x="630" y="428">results and</text>
+  <text class="boxtext" x="630" y="454">problems</text>
+
+  <rect class="box" x="266" y="378" width="178" height="94" rx="18" fill="#b2f2bb" stroke="#22c55e" />
+  <text class="boxtext" x="355" y="414">Edit</text>
+  <text class="boxtext" x="355" y="440">files</text>
+
+  <rect class="box" x="782" y="380" width="92" height="82" rx="18" fill="#c3fae8" stroke="#0f766e" />
+  <text class="boxtext" x="828" y="429">Done</text>
+
+  <path class="arrow" d="M180 292 L232 292 L266 178" />
+  <path class="arrow" d="M444 178 L536 178" />
+  <path class="arrow" d="M630 224 L630 370" />
+  <path class="arrow" d="M536 421 L444 421" />
+  <path class="arrow" d="M355 378 L355 224" />
+  <path class="arrow" d="M724 421 L782 421" />
+
+  <text class="note" x="314" y="518">Repeat until checks pass</text>
+</svg>

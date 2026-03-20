@@ -1,0 +1,167 @@
+{
+  "elements": [
+    { "type": "cameraUpdate", "width": 1200, "height": 900, "x": 0, "y": 0 },
+    {
+      "type": "rectangle",
+      "id": "edit-zone",
+      "x": 40,
+      "y": 130,
+      "width": 1120,
+      "height": 560,
+      "backgroundColor": "#e5dbff",
+      "fillStyle": "solid",
+      "strokeColor": "#8b5cf6",
+      "strokeWidth": 1,
+      "opacity": 24,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "text",
+      "id": "edit-caption",
+      "x": 72,
+      "y": 162,
+      "text": "Edit mode: bounded changes inside a chosen working set",
+      "fontSize": 26,
+      "strokeColor": "#154c79"
+    },
+    {
+      "type": "rectangle",
+      "id": "edit-working-set",
+      "x": 360,
+      "y": 200,
+      "width": 250,
+      "height": 90,
+      "backgroundColor": "#c3fae8",
+      "fillStyle": "solid",
+      "strokeColor": "#0f766e",
+      "roundness": { "type": 3 },
+      "label": { "text": "Chosen\nworking set", "fontSize": 26 }
+    },
+    {
+      "type": "rectangle",
+      "id": "edit-request",
+      "x": 90,
+      "y": 360,
+      "width": 180,
+      "height": 100,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "roundness": { "type": 3 },
+      "label": { "text": "Specific\nedit request", "fontSize": 26 }
+    },
+    {
+      "type": "rectangle",
+      "id": "edit-core",
+      "x": 360,
+      "y": 330,
+      "width": 250,
+      "height": 150,
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "strokeColor": "#8b5cf6",
+      "roundness": { "type": 3 },
+      "label": { "text": "Edit mode makes\nbounded changes\ninside that set", "fontSize": 24 }
+    },
+    {
+      "type": "rectangle",
+      "id": "edit-proposed",
+      "x": 690,
+      "y": 350,
+      "width": 210,
+      "height": 100,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeColor": "#22c55e",
+      "roundness": { "type": 3 },
+      "label": { "text": "Proposed\nedits", "fontSize": 26 }
+    },
+    {
+      "type": "rectangle",
+      "id": "edit-review",
+      "x": 960,
+      "y": 350,
+      "width": 140,
+      "height": 100,
+      "backgroundColor": "#ffd8a8",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "Review", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "edit-note",
+      "x": 360,
+      "y": 540,
+      "width": 320,
+      "height": 70,
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "No autonomous run/test/fix loop", "fontSize": 22 }
+    },
+    {
+      "type": "arrow",
+      "id": "edit-a1",
+      "x": 485,
+      "y": 290,
+      "width": 0,
+      "height": 40,
+      "points": [[0, 0], [0, 40]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "edit-a2",
+      "x": 270,
+      "y": 410,
+      "width": 90,
+      "height": 0,
+      "points": [[0, 0], [90, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "edit-a3",
+      "x": 610,
+      "y": 400,
+      "width": 80,
+      "height": 0,
+      "points": [[0, 0], [80, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "edit-a4",
+      "x": 900,
+      "y": 400,
+      "width": 60,
+      "height": 0,
+      "points": [[0, 0], [60, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "edit-loop",
+      "x": 1030,
+      "y": 450,
+      "width": -850,
+      "height": 180,
+      "points": [[0, 0], [0, 180], [-850, 180], [-850, -40]],
+      "endArrowhead": "arrow",
+      "strokeStyle": "dashed",
+      "strokeColor": "#8b5cf6"
+    },
+    {
+      "type": "text",
+      "id": "edit-loop-label",
+      "x": 500,
+      "y": 620,
+      "text": "Next prompt",
+      "fontSize": 20,
+      "strokeColor": "#8b5cf6"
+    }
+  ]
+}

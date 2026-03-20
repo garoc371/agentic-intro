@@ -1,0 +1,175 @@
+{
+  "elements": [
+    { "type": "cameraUpdate", "width": 1200, "height": 900, "x": 0, "y": 0 },
+    {
+      "type": "rectangle",
+      "id": "agent-zone",
+      "x": 40,
+      "y": 130,
+      "width": 1120,
+      "height": 560,
+      "backgroundColor": "#d3f9d8",
+      "fillStyle": "solid",
+      "strokeColor": "#22c55e",
+      "strokeWidth": 1,
+      "opacity": 22,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "text",
+      "id": "agent-caption",
+      "x": 72,
+      "y": 162,
+      "text": "Agent mode: tools drive a real work loop",
+      "fontSize": 26,
+      "strokeColor": "#154c79"
+    },
+    {
+      "type": "rectangle",
+      "id": "agent-task",
+      "x": 70,
+      "y": 350,
+      "width": 170,
+      "height": 100,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#4a9eed",
+      "roundness": { "type": 3 },
+      "label": { "text": "High-level\ntask", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "agent-search",
+      "x": 330,
+      "y": 220,
+      "width": 230,
+      "height": 110,
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "Search and\nread code", "fontSize": 28 }
+    },
+    {
+      "type": "rectangle",
+      "id": "agent-run",
+      "x": 650,
+      "y": 220,
+      "width": 240,
+      "height": 110,
+      "backgroundColor": "#ffd8a8",
+      "fillStyle": "solid",
+      "strokeColor": "#f59e0b",
+      "roundness": { "type": 3 },
+      "label": { "text": "Run tools,\ntests, or MCP", "fontSize": 26 }
+    },
+    {
+      "type": "rectangle",
+      "id": "agent-inspect",
+      "x": 650,
+      "y": 500,
+      "width": 240,
+      "height": 110,
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "strokeColor": "#8b5cf6",
+      "roundness": { "type": 3 },
+      "label": { "text": "Inspect\nresults and\nproblems", "fontSize": 24 }
+    },
+    {
+      "type": "rectangle",
+      "id": "agent-edit",
+      "x": 330,
+      "y": 500,
+      "width": 230,
+      "height": 110,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeColor": "#22c55e",
+      "roundness": { "type": 3 },
+      "label": { "text": "Edit\nfiles", "fontSize": 30 }
+    },
+    {
+      "type": "rectangle",
+      "id": "agent-done",
+      "x": 960,
+      "y": 505,
+      "width": 140,
+      "height": 100,
+      "backgroundColor": "#c3fae8",
+      "fillStyle": "solid",
+      "strokeColor": "#0f766e",
+      "roundness": { "type": 3 },
+      "label": { "text": "Done", "fontSize": 30 }
+    },
+    {
+      "type": "arrow",
+      "id": "agent-a1",
+      "x": 240,
+      "y": 400,
+      "width": 90,
+      "height": -125,
+      "points": [[0, 0], [50, 0], [90, -125]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "agent-a2",
+      "x": 560,
+      "y": 275,
+      "width": 90,
+      "height": 0,
+      "points": [[0, 0], [90, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "agent-a3",
+      "x": 770,
+      "y": 330,
+      "width": 0,
+      "height": 170,
+      "points": [[0, 0], [0, 170]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "agent-a4",
+      "x": 650,
+      "y": 555,
+      "width": -90,
+      "height": 0,
+      "points": [[0, 0], [-90, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "agent-a5",
+      "x": 445,
+      "y": 500,
+      "width": 0,
+      "height": -170,
+      "points": [[0, 0], [0, -170]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "agent-a6",
+      "x": 890,
+      "y": 555,
+      "width": 70,
+      "height": 0,
+      "points": [[0, 0], [70, 0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "text",
+      "id": "agent-loop-note",
+      "x": 415,
+      "y": 645,
+      "text": "Repeat until checks pass",
+      "fontSize": 20,
+      "strokeColor": "#8b5cf6"
+    }
+  ]
+}

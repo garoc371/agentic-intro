@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 660" role="img" aria-labelledby="title desc">
+  <title id="title">Agent loop with message flow</title>
+  <desc id="desc">A simplified agentic while-loop on the left and a messages panel on the right showing tool use and tool result messages being appended.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#94a3b8" />
+    </marker>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#18212b" flood-opacity="0.1" />
+    </filter>
+    <style>
+      .outer { fill: #fffdf8; stroke: #ddd6cb; stroke-width: 2; }
+      .panel { fill: #fbfbf9; stroke: #ece7dd; stroke-width: 1.5; }
+      .mono { fill: #9aa1ab; font: 600 20px "SFMono-Regular", Menlo, Consolas, monospace; }
+      .headline { fill: #154c79; font: 700 20px "Avenir Next", "Helvetica Neue", Arial, sans-serif; }
+      .note { fill: #6b7280; font: 500 15px "Avenir Next", "Helvetica Neue", Arial, sans-serif; }
+      .flow { fill: #dbeafe; stroke: #bfd0e6; stroke-width: 2; filter: url(#softShadow); }
+      .diamond { fill: #e7eff8; stroke: #bfd0e6; stroke-width: 2; filter: url(#softShadow); }
+      .flow-text { fill: #4b5563; font: 700 15px "SFMono-Regular", Menlo, Consolas, monospace; text-anchor: middle; }
+      .edge { fill: none; stroke: #b7c2cf; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .edge-muted { fill: none; stroke: #d2d8e0; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .edge-label { fill: #b0b8c2; font: 500 13px "Avenir Next", "Helvetica Neue", Arial, sans-serif; }
+      .bubble { filter: url(#softShadow); }
+      .user { fill: #eef2ff; stroke: #c7d2fe; stroke-width: 2; }
+      .assistant { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 2; }
+      .tool { fill: #fff7ed; stroke: #fdba74; stroke-width: 2; }
+      .bubble-role { fill: #6b7280; font: 700 12px "Avenir Next", "Helvetica Neue", Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.08em; }
+      .bubble-text { fill: #374151; font: 500 15px "Avenir Next", "Helvetica Neue", Arial, sans-serif; }
+      .bubble-code { fill: #b45309; font: 600 15px "SFMono-Regular", Menlo, Consolas, monospace; }
+      .ghost { fill: #d1d5db; font: 500 18px "Avenir Next", "Helvetica Neue", Arial, sans-serif; }
+      .dot { fill: #2563eb; }
+      .highlight-api { animation: pulse-api 8s infinite; }
+      .highlight-exec { animation: pulse-exec 8s infinite; }
+      .highlight-append { animation: pulse-append 8s infinite; }
+      @keyframes pulse-api {
+        0%, 16%, 100% { stroke: #bfd0e6; stroke-width: 2; }
+        5%, 12% { stroke: #60a5fa; stroke-width: 4; }
+      }
+      @keyframes pulse-exec {
+        0%, 50%, 100% { stroke: #bfd0e6; stroke-width: 2; }
+        34%, 44% { stroke: #60a5fa; stroke-width: 4; }
+      }
+      @keyframes pulse-append {
+        0%, 80%, 100% { stroke: #bfd0e6; stroke-width: 2; }
+        58%, 70% { stroke: #60a5fa; stroke-width: 4; }
+      }
+    </style>
+  </defs>
+
+  <rect class="outer" x="20" y="20" width="1120" height="620" rx="24" />
+  <text class="mono" x="52" y="74">while (stop_reason === "tool_use")</text>
+  <text class="mono" x="700" y="74">messages[]</text>
+
+  <rect class="panel" x="40" y="96" width="610" height="500" rx="16" />
+  <rect class="panel" x="680" y="96" width="430" height="500" rx="16" />
+
+  <rect class="flow" x="234" y="118" width="156" height="54" rx="12" />
+  <text class="flow-text" x="312" y="151">Start</text>
+
+  <rect class="flow highlight-api" x="234" y="218" width="156" height="54" rx="12" />
+  <text class="flow-text" x="312" y="251">API Call</text>
+
+  <path class="diamond" d="M312 306 L380 342 L312 378 L244 342 Z" />
+  <text class="flow-text" x="312" y="347">stop_reason?</text>
+
+  <rect class="flow" x="444" y="315" width="154" height="54" rx="12" />
+  <text class="flow-text" x="521" y="348">Break / Done</text>
+
+  <rect class="flow highlight-exec" x="234" y="428" width="156" height="54" rx="12" />
+  <text class="flow-text" x="312" y="461">Execute Tool</text>
+
+  <rect class="flow highlight-append" x="234" y="518" width="156" height="54" rx="12" />
+  <text class="flow-text" x="312" y="551">Append Result</text>
+
+  <path class="edge" d="M312 172 L312 218" />
+  <path class="edge" d="M312 272 L312 306" />
+  <path class="edge" d="M380 342 L444 342" />
+  <path class="edge" d="M312 378 L312 428" />
+  <path class="edge" d="M312 482 L312 518" />
+  <path class="edge" d="M234 545 L154 545 L154 245 L234 245" />
+
+  <text class="edge-label" x="398" y="328">end_turn</text>
+  <text class="edge-label" x="360" y="410">tool_use</text>
+
+  <rect class="assistant bubble" x="718" y="126" width="330" height="78" rx="14" />
+  <text class="bubble-role" x="742" y="149">user</text>
+  <text class="bubble-text" x="742" y="178">“Map this repo and explain the auth flow.”</text>
+
+  <rect class="tool bubble" x="736" y="226" width="312" height="92" rx="14" />
+  <text class="bubble-role" x="760" y="249">assistant tool_use</text>
+  <text class="bubble-code" x="760" y="279">rg "auth|login|token" src</text>
+  <text class="bubble-text" x="760" y="301">and inspect the matching files</text>
+
+  <rect class="user bubble" x="718" y="344" width="330" height="112" rx="14" />
+  <text class="bubble-role" x="742" y="367">user tool_result</text>
+  <text class="bubble-code" x="742" y="397">src/auth.ts: 18, 44, 72</text>
+  <text class="bubble-code" x="742" y="421">src/session.ts: 12, 51</text>
+  <text class="bubble-text" x="742" y="445">Now the next model call sees this output.</text>
+
+  <rect class="assistant bubble" x="736" y="482" width="312" height="86" rx="14" />
+  <text class="bubble-role" x="760" y="505">assistant</text>
+  <text class="bubble-text" x="760" y="534">It can answer, or ask for another tool.</text>
+  <text class="bubble-text" x="760" y="556">That is the full agentic loop.</text>
+
+  <circle class="dot" r="8">
+    <animateMotion dur="8s" repeatCount="indefinite" path="M312 245 L312 342 L312 455 L312 545 L154 545 L154 245 L312 245" />
+  </circle>
+
+  <path class="edge-muted" d="M654 178 L680 178" />
+  <path class="edge-muted" d="M654 286 L680 286" />
+  <path class="edge-muted" d="M654 406 L680 406" />
+  <path class="edge-muted" d="M654 525 L680 525" />
+</svg>
