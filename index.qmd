@@ -38,7 +38,7 @@ LLMs are still autoregressive models: given the tokens so far, predict the next 
 :::
 ::::
 
-Conceptually, the progression is: next-token prediction, then chat-formatted assistance, then tool-using systems optimized for multi-step tasks.
+The sequence is simple: next-token prediction, then chat assistance, then tool-using systems for multi-step tasks.
 
 ## Context window
 
@@ -46,7 +46,7 @@ Conceptually, the progression is: next-token prediction, then chat-formatted ass
 ::: {.column width="44%"}
 At inference time, the model only sees the tokens inside its current context window.
 
-For coding agents, search, read, inspect, and repeat is largely a context-management strategy.
+For coding agents, search, read, inspect, and repeat is also a way to manage context.
 :::
 
 ::: {.column width="56%"}
@@ -96,7 +96,7 @@ Most LLM products fit one of three interaction patterns.
 - Chat with tools: the answer may pause for search or read calls.
 - Full agentic loop: search, act, inspect, and repeat until a stop condition.
 
-The practical difference is how long the system keeps control before it hands the loop back.
+What changes across these patterns is how long the system keeps control.
 :::
 
 ::: {.column width="54%"}
@@ -158,7 +158,7 @@ Tool use turns one model response into a small internal loop.
 :::
 ::::
 
-For real projects, the gain is simple: discover context progressively instead of dumping everything at once.
+In real projects, the gain is targeted retrieval instead of one oversized prompt.
 
 ## Full agentic loop
 
@@ -200,7 +200,7 @@ Search, inspect, append the result to `messages[]`, call the model again, and re
 :::
 ::::
 
-The visible difference is autonomy: short answers, bounded edits, or longer task loops.
+What changes across modes is how long Copilot keeps control: a short answer, a bounded edit, or a longer task loop.
 
 ## Ask Mode
 
@@ -291,29 +291,29 @@ The visible difference is autonomy: short answers, bounded edits, or longer task
 
 ## Positron
 
-For many RStudio users, Positron is the most natural next surface.
+If your colleagues think in RStudio terms, Positron is the easiest next step.
 
 - Start here if you want an IDE that still feels centered on the `Console`, `Variables Pane`, `Plots Pane`, `Help`, and `Data Explorer`.
 - Positron Assistant keeps the VS Code-like surfaces: `Chat`, inline chat, code completions, and quick Console error fixes.
-- The useful extra context is session-native: attached `Interpreter Sessions…`, Console inputs and outputs, in-memory objects in the `Variables Pane`, and the active plot in the `Plots Pane`.
+- The extra context comes from the live session: attached `Interpreter Sessions…`, Console inputs and outputs, in-memory objects in the `Variables Pane`, and the active plot in the `Plots Pane`.
 - From the paperclip menu, you can attach `Files & Folders`, `Interpreter Sessions…`, `Source Control…`, and `Tools`.
-- If your work is exploratory R analysis, Quarto, or Shiny, Positron is often the easiest place to keep the agent grounded in the live session.
+- It is a good fit for exploratory R analysis, Quarto, and Shiny because the agent can stay tied to the live session.
 
 ## Copilot CLI
 
-Copilot CLI is maximum power in a terminal interface.
+Copilot CLI gives the agent the most freedom.
 
 - It is the most general surface for file access, shell commands, logs, renders, builds, git, and long-running tasks.
-- Once you trust a folder, it can read, modify, and execute within that directory tree, so this is the place where you impose the least control.
+- Once you trust a folder, it can read, modify, and execute within that directory tree. This is the least constrained surface.
 - It is a strong fit for `renv`, `targets`, Quarto renders, shell-heavy workflows, and repository maintenance.
-- It exposes the more agentic building blocks directly: autopilot mode, trusted directories, tool approvals, custom agents, skills, hooks, and MCP.
-- It is excellent for getting work done, but it is a weaker place to review code carefully; after a substantial task, switch back to the IDE for diff review and cleanup.
+- It surfaces the agent plumbing directly: autopilot mode, trusted directories, tool approvals, custom agents, skills, hooks, and MCP.
+- It gets work done quickly, but terminal review is weak. After a substantial task, switch back to the IDE for diff review and cleanup.
 
 ## Constructing closed feedback loops
 
-This is the main usage trick with coding agents: give them a loop that can tell them whether they are getting warmer or colder.
+Agents work best when the task can check its own output.
 
-- The basic pattern is `edit -> run -> inspect -> fix`.
+- Use a tight loop: `edit -> run -> inspect -> fix`.
 - Agents are strongest when the task has a fast local signal: tests, parser checks, linting, Quarto renders, app startup, or a script that reproduces a plot or table.
 - In R work, that can mean `testthat`, a Quarto render, a Shiny launch, or a reproducible analysis script.
 - One practical pattern is test-first: ask for a failing test or a minimal reproduction, then let the agent iterate until it passes.
@@ -328,19 +328,19 @@ This is the main usage trick with coding agents: give them a loop that can tell 
 
 ## Workflow building blocks
 
-- **Custom instructions**: reusable repo or team guidance
-- **Skills**: task-specific instructions, scripts, or resources
-- **Subagents / custom agents**: bounded helper roles
-- **Hooks**: automatic checks before or after key events
+- Custom instructions give reusable repository or team guidance.
+- Skills bundle task-specific instructions, scripts, or resources.
+- Subagents or custom agents handle bounded helper roles.
+- Hooks run checks before or after key events.
 
-The names vary by product, but the intuition is stable: instructions shape behavior, skills add know-how, subagents split work, and hooks enforce process.
+The names differ across products, but the job is the same: instructions shape behavior, skills add know-how, subagents split work, and hooks enforce process.
 
 ## Main limitation
 
 **LLMs write at inference speed; humans review at human speed.**
 
 - They are fast at syntax, boilerplate, and glue code.
-- They are still weak at designing abstractions and noticing when the local pattern is the wrong pattern to repeat.
+- They are still weak at abstraction design and at noticing when a copied local pattern is the wrong one.
 - Complexity can pile up faster than a human can review it.
 - Wrong retrieval still produces wrong code, just faster.
 
@@ -357,13 +357,13 @@ The names vary by product, but the intuition is stable: instructions shape behav
 - Plots, tables, Quarto snippets, and Shiny prototypes.
 - Git operations, repository exploration, package documentation, `renv`, and `targets`.
 - Frame the statistical task clearly; let the model handle more of the syntax.
-- For this audience, the main gain is faster iteration around research tasks that still have a clear human owner.
+- The main gain here is faster iteration on research tasks that still have a clear human owner.
 
 ## Closing
 
 - Use agents as leverage, not as a substitute for judgment.
 - Keep ownership of the statistical question, the boundaries, and the review.
-- Build a workflow through curiosity-led experimentation.
+- Find a workflow that fits your work, then keep refining it.
 
 ## References
 

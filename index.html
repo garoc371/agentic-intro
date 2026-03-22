@@ -1179,14 +1179,14 @@ margin-right: 0; }
 <li>tools and loops change what enters context and how long the system can keep working</li>
 </ul>
 </div></div>
-<p>Conceptually, the progression is: next-token prediction, then chat-formatted assistance, then tool-using systems optimized for multi-step tasks.</p>
+<p>The sequence is simple: next-token prediction, then chat assistance, then tool-using systems for multi-step tasks.</p>
 </section>
 <section id="context-window" class="slide level2">
 <h2>Context window</h2>
 <div class="columns">
 <div class="column" style="width:44%;">
 <p>At inference time, the model only sees the tokens inside its current context window.</p>
-<p>For coding agents, search, read, inspect, and repeat is largely a context-management strategy.</p>
+<p>For coding agents, search, read, inspect, and repeat is also a way to manage context.</p>
 </div><div class="column" style="width:56%;">
 <ul>
 <li class="fragment fade-up" data-fragment-index="1">
@@ -1235,7 +1235,7 @@ Tool use helps by finding the right context on demand, then adding only the usef
 <li>Chat with tools: the answer may pause for search or read calls.</li>
 <li>Full agentic loop: search, act, inspect, and repeat until a stop condition.</li>
 </ul>
-<p>The practical difference is how long the system keeps control before it hands the loop back.</p>
+<p>What changes across these patterns is how long the system keeps control.</p>
 </div><div class="column" style="width:54%;">
 <p><img role="img" data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NjAgNTIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUgZGVzYyI+CiAgPHRpdGxlIGlkPSJ0aXRsZSI+VGhyZWUgaW50ZXJhY3Rpb24gcGF0dGVybnM8L3RpdGxlPgogIDxkZXNjIGlkPSJkZXNjIj5BIHZlcnRpY2FsIHNlcXVlbmNlIHNob3dpbmcgY2hhdCBvbmx5LCBjaGF0IHdpdGggdG9vbHMsIGFuZCB0aGUgZnVsbCBhZ2VudGljIGxvb3AsIHdpdGggYSBzaWRlIGFycm93IGZvciBkZWNyZWFzaW5nIGh1bWFuIGNvbnRyb2wuPC9kZXNjPgogIDxkZWZzPgogICAgPG1hcmtlciBpZD0iYXJyb3ciIG1hcmtlcldpZHRoPSI4IiBtYXJrZXJIZWlnaHQ9IjgiIHJlZlg9IjYuOCIgcmVmWT0iNCIgb3JpZW50PSJhdXRvIiBtYXJrZXJVbml0cz0ic3Ryb2tlV2lkdGgiPgogICAgICA8cGF0aCBkPSJNMCwwIEw4LDQgTDAsOCB6IiBmaWxsPSIjMzc0MTUxIiAvPgogICAgPC9tYXJrZXI+CiAgICA8c3R5bGU+CiAgICAgIC5wYW5lbCB7IGZpbGw6ICNlZWYzZmY7IHN0cm9rZTogI2Q3ZTVmZjsgc3Ryb2tlLXdpZHRoOiAyLjI7IH0KICAgICAgLmluayB7IGZpbGw6ICMxNTRjNzk7IGZvbnQ6IDcwMCAyNHB4ICJCcmFkbGV5IEhhbmQiLCAiTWFya2VyIEZlbHQiLCAiQ29taWMgU2FucyBNUyIsIGN1cnNpdmU7IH0KICAgICAgLmJveHRleHQgeyBmaWxsOiAjMWYyOTM3OyBmb250OiA3MDAgMjBweCAiQnJhZGxleSBIYW5kIiwgIk1hcmtlciBGZWx0IiwgIkNvbWljIFNhbnMgTVMiLCBjdXJzaXZlOyB0ZXh0LWFuY2hvcjogbWlkZGxlOyB9CiAgICAgIC5zdWJ0ZXh0IHsgZmlsbDogIzRiNTU2MzsgZm9udDogNzAwIDE0cHggIkJyYWRsZXkgSGFuZCIsICJNYXJrZXIgRmVsdCIsICJDb21pYyBTYW5zIE1TIiwgY3Vyc2l2ZTsgdGV4dC1hbmNob3I6IG1pZGRsZTsgfQogICAgICAuYXJyb3cgeyBmaWxsOiBub25lOyBzdHJva2U6ICMzNzQxNTE7IHN0cm9rZS13aWR0aDogMi4yOyBzdHJva2UtbGluZWNhcDogcm91bmQ7IHN0cm9rZS1saW5lam9pbjogcm91bmQ7IG1hcmtlci1lbmQ6IHVybCgjYXJyb3cpOyB9CiAgICAgIC5jb250cm9sIHsgZmlsbDogbm9uZTsgc3Ryb2tlOiAjOGI1Y2Y2OyBzdHJva2Utd2lkdGg6IDIuNDsgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOyBzdHJva2UtbGluZWpvaW46IHJvdW5kOyBtYXJrZXItZW5kOiB1cmwoI2Fycm93KTsgfQogICAgICAuY29udHJvbHRleHQgeyBmaWxsOiAjOGI1Y2Y2OyBmb250OiA3MDAgMThweCAiQnJhZGxleSBIYW5kIiwgIk1hcmtlciBGZWx0IiwgIkNvbWljIFNhbnMgTVMiLCBjdXJzaXZlOyB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KCiAgPHJlY3QgY2xhc3M9InBhbmVsIiB4PSIxOCIgeT0iMTYiIHdpZHRoPSI3MjQiIGhlaWdodD0iNDg4IiByeD0iMjgiIC8+CiAgPHRleHQgY2xhc3M9ImluayIgeD0iNjIiIHk9IjU2Ij5TYW1lIG1vZGVsIGZhbWlseSwgZGlmZmVyZW50IHRvb2wgZnJlZWRvbTwvdGV4dD4KCiAgPHJlY3QgeD0iMTk4IiB5PSI5MiIgd2lkdGg9IjI1OCIgaGVpZ2h0PSI4MiIgcng9IjE4IiBmaWxsPSIjYTVkOGZmIiBzdHJva2U9IiM0YTllZWQiIHN0cm9rZS13aWR0aD0iMyIgLz4KICA8dGV4dCBjbGFzcz0iYm94dGV4dCIgeD0iMzI3IiB5PSIxMjgiPkNoYXQgb25seTwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic3VidGV4dCIgeD0iMzI3IiB5PSIxNTEiPlByb21wdCAtJmd0OyBhbnN3ZXI8L3RleHQ+CgogIDxyZWN0IHg9IjE5OCIgeT0iMjEyIiB3aWR0aD0iMjU4IiBoZWlnaHQ9IjgyIiByeD0iMTgiIGZpbGw9IiNmZmYzYmYiIHN0cm9rZT0iI2Y1OWUwYiIgc3Ryb2tlLXdpZHRoPSIzIiAvPgogIDx0ZXh0IGNsYXNzPSJib3h0ZXh0IiB4PSIzMjciIHk9IjI0OCI+Q2hhdCB3aXRoIHRvb2xzPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzdWJ0ZXh0IiB4PSIzMjciIHk9IjI3MSI+UHJvbXB0IC0mZ3Q7IHRvb2wgLSZndDsgYW5zd2VyPC90ZXh0PgoKICA8cmVjdCB4PSIxOTgiIHk9IjMzMiIgd2lkdGg9IjI1OCIgaGVpZ2h0PSI4OCIgcng9IjE4IiBmaWxsPSIjYjJmMmJiIiBzdHJva2U9IiMyMmM1NWUiIHN0cm9rZS13aWR0aD0iMyIgLz4KICA8dGV4dCBjbGFzcz0iYm94dGV4dCIgeD0iMzI3IiB5PSIzNjciPkZ1bGwgYWdlbnRpYyBsb29wPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzdWJ0ZXh0IiB4PSIzMjciIHk9IjM5MCI+U2VhcmNoIC0mZ3Q7IGFjdCAtJmd0OyBpbnNwZWN0IC0mZ3Q7IHJlcGVhdDwvdGV4dD4KCiAgPHBhdGggY2xhc3M9ImFycm93IiBkPSJNMzI3IDE3NCBMMzI3IDIxMiIgLz4KICA8cGF0aCBjbGFzcz0iYXJyb3ciIGQ9Ik0zMjcgMjk0IEwzMjcgMzMyIiAvPgoKICA8cGF0aCBjbGFzcz0iY29udHJvbCIgZD0iTTYxMCAxMDQgTDYxMCA0MDgiIC8+CiAgPHRleHQgY2xhc3M9ImNvbnRyb2x0ZXh0IiB4PSI2MjgiIHk9IjIzNiI+RGVjcmVhc2luZzwvdGV4dD4KICA8dGV4dCBjbGFzcz0iY29udHJvbHRleHQiIHg9IjYyOCIgeT0iMjYwIj5odW1hbiBjb250cm9sPC90ZXh0Pgo8L3N2Zz4K" style="width:100.0%"></p>
 </div></div>
@@ -1288,7 +1288,7 @@ Tool use helps by finding the right context on demand, then adding only the usef
 <li>keep the active context window narrower and more task-relevant</li>
 </ul>
 </div></div>
-<p>For real projects, the gain is simple: discover context progressively instead of dumping everything at once.</p>
+<p>In real projects, the gain is targeted retrieval instead of one oversized prompt.</p>
 </section>
 <section id="full-agentic-loop" class="slide level2">
 <h2>Full agentic loop</h2>
@@ -1328,7 +1328,7 @@ Tool use helps by finding the right context on demand, then adding only the usef
 <li>useful when touching the wrong thing too early is costly</li>
 </ul>
 </div></div>
-<p>The visible difference is autonomy: short answers, bounded edits, or longer task loops.</p>
+<p>What changes across modes is how long Copilot keeps control: a short answer, a bounded edit, or a longer task loop.</p>
 </section>
 <section id="ask-mode" class="slide level2">
 <h2>Ask Mode</h2>
@@ -1410,31 +1410,31 @@ Tool use helps by finding the right context on demand, then adding only the usef
 </section>
 <section id="positron" class="slide level2">
 <h2>Positron</h2>
-<p>For many RStudio users, Positron is the most natural next surface.</p>
+<p>If your colleagues think in RStudio terms, Positron is the easiest next step.</p>
 <ul>
 <li>Start here if you want an IDE that still feels centered on the <code>Console</code>, <code>Variables Pane</code>, <code>Plots Pane</code>, <code>Help</code>, and <code>Data Explorer</code>.</li>
 <li>Positron Assistant keeps the VS Code-like surfaces: <code>Chat</code>, inline chat, code completions, and quick Console error fixes.</li>
-<li>The useful extra context is session-native: attached <code>Interpreter Sessions…</code>, Console inputs and outputs, in-memory objects in the <code>Variables Pane</code>, and the active plot in the <code>Plots Pane</code>.</li>
+<li>The extra context comes from the live session: attached <code>Interpreter Sessions…</code>, Console inputs and outputs, in-memory objects in the <code>Variables Pane</code>, and the active plot in the <code>Plots Pane</code>.</li>
 <li>From the paperclip menu, you can attach <code>Files &amp; Folders</code>, <code>Interpreter Sessions…</code>, <code>Source Control…</code>, and <code>Tools</code>.</li>
-<li>If your work is exploratory R analysis, Quarto, or Shiny, Positron is often the easiest place to keep the agent grounded in the live session.</li>
+<li>It is a good fit for exploratory R analysis, Quarto, and Shiny because the agent can stay tied to the live session.</li>
 </ul>
 </section>
 <section id="copilot-cli" class="slide level2">
 <h2>Copilot CLI</h2>
-<p>Copilot CLI is maximum power in a terminal interface.</p>
+<p>Copilot CLI gives the agent the most freedom.</p>
 <ul>
 <li>It is the most general surface for file access, shell commands, logs, renders, builds, git, and long-running tasks.</li>
-<li>Once you trust a folder, it can read, modify, and execute within that directory tree, so this is the place where you impose the least control.</li>
+<li>Once you trust a folder, it can read, modify, and execute within that directory tree. This is the least constrained surface.</li>
 <li>It is a strong fit for <code>renv</code>, <code>targets</code>, Quarto renders, shell-heavy workflows, and repository maintenance.</li>
-<li>It exposes the more agentic building blocks directly: autopilot mode, trusted directories, tool approvals, custom agents, skills, hooks, and MCP.</li>
-<li>It is excellent for getting work done, but it is a weaker place to review code carefully; after a substantial task, switch back to the IDE for diff review and cleanup.</li>
+<li>It surfaces the agent plumbing directly: autopilot mode, trusted directories, tool approvals, custom agents, skills, hooks, and MCP.</li>
+<li>It gets work done quickly, but terminal review is weak. After a substantial task, switch back to the IDE for diff review and cleanup.</li>
 </ul>
 </section>
 <section id="constructing-closed-feedback-loops" class="slide level2">
 <h2>Constructing closed feedback loops</h2>
-<p>This is the main usage trick with coding agents: give them a loop that can tell them whether they are getting warmer or colder.</p>
+<p>Agents work best when the task can check its own output.</p>
 <ul>
-<li>The basic pattern is <code>edit -&gt; run -&gt; inspect -&gt; fix</code>.</li>
+<li>Use a tight loop: <code>edit -&gt; run -&gt; inspect -&gt; fix</code>.</li>
 <li>Agents are strongest when the task has a fast local signal: tests, parser checks, linting, Quarto renders, app startup, or a script that reproduces a plot or table.</li>
 <li>In R work, that can mean <code>testthat</code>, a Quarto render, a Shiny launch, or a reproducible analysis script.</li>
 <li>One practical pattern is test-first: ask for a failing test or a minimal reproduction, then let the agent iterate until it passes.</li>
@@ -1453,19 +1453,19 @@ Tool use helps by finding the right context on demand, then adding only the usef
 <section id="workflow-building-blocks" class="slide level2">
 <h2>Workflow building blocks</h2>
 <ul>
-<li><strong>Custom instructions</strong>: reusable repo or team guidance</li>
-<li><strong>Skills</strong>: task-specific instructions, scripts, or resources</li>
-<li><strong>Subagents / custom agents</strong>: bounded helper roles</li>
-<li><strong>Hooks</strong>: automatic checks before or after key events</li>
+<li>Custom instructions give reusable repository or team guidance.</li>
+<li>Skills bundle task-specific instructions, scripts, or resources.</li>
+<li>Subagents or custom agents handle bounded helper roles.</li>
+<li>Hooks run checks before or after key events.</li>
 </ul>
-<p>The names vary by product, but the intuition is stable: instructions shape behavior, skills add know-how, subagents split work, and hooks enforce process.</p>
+<p>The names differ across products, but the job is the same: instructions shape behavior, skills add know-how, subagents split work, and hooks enforce process.</p>
 </section>
 <section id="main-limitation" class="slide level2">
 <h2>Main limitation</h2>
 <p><strong>LLMs write at inference speed; humans review at human speed.</strong></p>
 <ul>
 <li>They are fast at syntax, boilerplate, and glue code.</li>
-<li>They are still weak at designing abstractions and noticing when the local pattern is the wrong pattern to repeat.</li>
+<li>They are still weak at abstraction design and at noticing when a copied local pattern is the wrong one.</li>
 <li>Complexity can pile up faster than a human can review it.</li>
 <li>Wrong retrieval still produces wrong code, just faster.</li>
 </ul>
@@ -1486,7 +1486,7 @@ Tool use helps by finding the right context on demand, then adding only the usef
 <li>Plots, tables, Quarto snippets, and Shiny prototypes.</li>
 <li>Git operations, repository exploration, package documentation, <code>renv</code>, and <code>targets</code>.</li>
 <li>Frame the statistical task clearly; let the model handle more of the syntax.</li>
-<li>For this audience, the main gain is faster iteration around research tasks that still have a clear human owner.</li>
+<li>The main gain here is faster iteration on research tasks that still have a clear human owner.</li>
 </ul>
 </section>
 <section id="closing" class="slide level2">
@@ -1494,7 +1494,7 @@ Tool use helps by finding the right context on demand, then adding only the usef
 <ul>
 <li>Use agents as leverage, not as a substitute for judgment.</li>
 <li>Keep ownership of the statistical question, the boundaries, and the review.</li>
-<li>Build a workflow through curiosity-led experimentation.</li>
+<li>Find a workflow that fits your work, then keep refining it.</li>
 </ul>
 </section>
 <section id="references" class="slide level2">
