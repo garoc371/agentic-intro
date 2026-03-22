@@ -2,42 +2,45 @@
   <title id="title">Plain chat grows context</title>
   <desc id="desc">A stack of alternating user and model messages showing conversation context growth over time.</desc>
   <defs>
-    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L12,6 L0,12 z" fill="#374151" />
+    <marker id="arrow" markerWidth="7.5" markerHeight="7.5" refX="6.2" refY="3.75" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7.5,3.75 L0,7.5 z" fill="#374151" />
+    </marker>
+    <marker id="arrow-purple" markerWidth="7.5" markerHeight="7.5" refX="6.2" refY="3.75" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7.5,3.75 L0,7.5 z" fill="#8b5cf6" />
     </marker>
     <style>
       .panel { fill: #fbf7ea; stroke: #eadfcf; stroke-width: 2.2; }
       .ink { fill: #154c79; font: 700 24px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; }
       .small { fill: #154c79; font: 700 18px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; }
       .boxtext { fill: #1f2937; font: 700 20px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; text-anchor: middle; }
-      .arrow { fill: none; stroke: #374151; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
-      .control { fill: none; stroke: #8b5cf6; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrow); }
+      .arrow { fill: none; stroke: #374151; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .control { fill: none; stroke: #8b5cf6; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-purple); }
       .controltext { fill: #8b5cf6; font: 700 18px "Bradley Hand", "Marker Felt", "Comic Sans MS", cursive; }
     </style>
   </defs>
 
   <rect class="panel" x="18" y="18" width="724" height="484" rx="28" />
-  <text class="ink" x="192" y="64">messages[] keeps growing with each turn</text>
+  <text class="ink" x="184" y="62">messages[] keeps growing with each turn</text>
 
-  <rect x="190" y="108" width="286" height="62" rx="16" fill="#a5d8ff" stroke="#4a9eed" stroke-width="3" />
-  <text class="boxtext" x="333" y="145">User message</text>
+  <rect x="180" y="96" width="306" height="58" rx="16" fill="#a5d8ff" stroke="#4a9eed" stroke-width="3" />
+  <text class="boxtext" x="333" y="132">User asks about `mutate()`</text>
 
-  <rect x="190" y="196" width="286" height="62" rx="16" fill="#b2f2bb" stroke="#22c55e" stroke-width="3" />
-  <text class="boxtext" x="333" y="233">LM response</text>
+  <rect x="180" y="194" width="306" height="58" rx="16" fill="#b2f2bb" stroke="#22c55e" stroke-width="3" />
+  <text class="boxtext" x="333" y="230">LM explains the error</text>
 
-  <rect x="190" y="284" width="286" height="62" rx="16" fill="#a5d8ff" stroke="#4a9eed" stroke-width="3" />
-  <text class="boxtext" x="333" y="321">User follow-up</text>
+  <rect x="180" y="292" width="306" height="58" rx="16" fill="#a5d8ff" stroke="#4a9eed" stroke-width="3" />
+  <text class="boxtext" x="333" y="328">User follow-up</text>
 
-  <rect x="190" y="372" width="286" height="62" rx="16" fill="#b2f2bb" stroke="#22c55e" stroke-width="3" />
-  <text class="boxtext" x="333" y="409">LM response</text>
+  <rect x="180" y="390" width="306" height="58" rx="16" fill="#b2f2bb" stroke="#22c55e" stroke-width="3" />
+  <text class="boxtext" x="333" y="426">LM response</text>
 
-  <path class="arrow" d="M333 170 L333 196" />
-  <path class="arrow" d="M333 258 L333 284" />
-  <path class="arrow" d="M333 346 L333 372" />
+  <path class="arrow" d="M333 154 L333 194" />
+  <path class="arrow" d="M333 252 L333 292" />
+  <path class="arrow" d="M333 350 L333 390" />
 
-  <path class="control" d="M618 102 L618 430" />
-  <text class="controltext" x="638" y="232">Context grows</text>
-  <text class="controltext" x="638" y="256">over time</text>
+  <path class="control" d="M610 102 L610 448" />
+  <text class="controltext" x="628" y="254">Context grows</text>
+  <text class="controltext" x="628" y="278">over time</text>
 
-  <text class="small" x="192" y="468">Earlier turns stay in the context window.</text>
+  <text class="small" x="180" y="482">Earlier turns remain in the context window.</text>
 </svg>

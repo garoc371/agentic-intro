@@ -1,11 +1,13 @@
 ---
-title: "From LLM Interaction Patterns to VS Code Chat Modes"
-subtitle: "Ask, Edit, Agent, and Plan through the lens of tools"
-date: 2026-03-19
+title: "Agentic AI Tools for Research Work"
+subtitle: "LLMs, tools, product surfaces, and the shift from turns to tasks"
+date: 2026-03-22
 format:
   revealjs:
     slide-number: true
-    transition: fade
+    transition: slide
+    background-transition: fade
+    transition-speed: slow
     width: 1400
     height: 900
     margin: 0.04
@@ -15,268 +17,377 @@ format:
     css: styles.css
 ---
 
+## Foundations {.center .middle}
+
+## LLM background
+
+LLMs are still autoregressive models: given the tokens so far, predict the next token.
+
+:::: {.columns}
+::: {.column width="62%"}
+1. **Pretraining**: next-word prediction over large text and code corpora.
+2. **Post-training**: chat templates, instruction tuning, and preference training turn the base model into an assistant.
+3. **Recent RL progress**: on tasks with verifiable rewards, training can reinforce longer reasoning and useful tool calls.
+:::
+
+::: {.column width="38%"}
+### Why it matters here
+
+- agentic tools still run on token prediction underneath
+- tools and loops change what enters context and how long the system can keep working
+:::
+::::
+
+Conceptually, the progression is: next-token prediction, then chat-formatted assistance, then tool-using systems optimized for multi-step tasks.
+
+## Context window
+
+:::: {.columns}
+::: {.column width="44%"}
+At inference time, the model only sees the tokens inside its current context window.
+
+For coding agents, search, read, inspect, and repeat is largely a context-management strategy.
+:::
+
+::: {.column width="56%"}
+<ul>
+  <li class="fragment fade-up" data-fragment-index="1">It is the slice of conversation, code, docs, and tool output visible right now.</li>
+  <li class="fragment fade-up" data-fragment-index="2">It is not the same thing as everything stored in the model weights.</li>
+  <li class="fragment fade-up" data-fragment-index="3">Dump-everything prompts are expensive, noisy, and often poorly targeted.</li>
+  <li class="fragment fade-up" data-fragment-index="4">Tool use helps by finding the right context on demand, then adding only the useful pieces back.</li>
+</ul>
+:::
+::::
+
+## Tool calls
+
+:::: {.columns}
+::: {.column width="52%"}
+A tool call is not the search itself. It is the model expressing the intention to use a tool.
+
+- The LLM emits a structured request, often JSON-like.
+- The host application checks that request against the tools it has exposed.
+- The external program runs the search, command, or API call.
+- The result comes back as a `tool_result` message and enters context.
+
+This lets the system fetch relevant material when needed instead of front-loading one giant prompt.
+:::
+
+::: {.column width="48%"}
+```json
+{
+  "tool_name": "search",
+  "arguments": {
+    "query": "R restricted cubic splines"
+  }
+}
+```
+:::
+::::
+
+
 ## Three interaction patterns
 
-::: {.mode-layout}
-::: {.mode-copy}
+:::: {.columns}
+::: {.column width="46%"}
 Most LLM products fit one of three interaction patterns.
 
-- Plain chat: one user turn in, one model turn out.
-- Chat with tools: the model may pause to call something like search.
-- Full agentic loop: the model can search, act, inspect, and keep going until it reaches a stop condition.
+- Chat only: prompt in, answer out.
+- Chat with tools: the answer may pause for search or read calls.
+- Full agentic loop: search, act, inspect, and repeat until a stop condition.
 
-The practical difference is mostly the tool budget, and how much control you hand to the system between turns.
+The practical difference is how long the system keeps control before it hands the loop back.
 :::
 
-::: {.mode-figure}
+::: {.column width="54%"}
 ![](assets/interaction-patterns.svg){width=100%}
 :::
-:::
+::::
 
-## Plain chat grows context
+## Plain chat
 
-::: {.mode-layout}
-::: {.mode-copy}
+:::: {.columns}
+::: {.column width="46%"}
 Plain chat is still a loop, but it is a turn-based one.
 
 - Each new turn appends to the same conversation history.
-- Later responses are shaped by the earlier turns that remain in context.
+- Earlier turns stay in `messages[]` while they still fit in the context window.
 - The model can explain, compare, or draft, but it does not fetch new evidence on its own.
-
-This is the simplest mental model: the thread grows, and the next answer depends on that growing thread.
+- The human usually decides what enters context in the first place.
 :::
 
-::: {.mode-figure}
+::: {.column width="54%"}
 ![](assets/chat-thread.svg){width=100%}
 :::
-:::
+::::
 
-## Chat With Tools: search example
+## Chat with tools
 
-::: {.mode-layout}
-::: {.mode-copy}
+:::: {.columns}
+::: {.column width="46%"}
 Tool use turns one model response into a small internal loop.
 
-- The model emits a tool call such as `search(...)`.
+- The model emits a tool call such as `search("R mixed model random slopes")`.
 - The search results come back as structured tool output.
-- Those results are appended to the conversation, then the model continues with better evidence.
-
-The key difference is not a new kind of model. It is the extra tool-result message inserted into context.
+- Those results are appended to the conversation as a new message.
+- The next model call works from fresher, narrower context.
 :::
 
-::: {.mode-figure}
+::: {.column width="54%"}
 ![](assets/chat-search.svg){width=100%}
 :::
+::::
+
+## Context discovery
+
+:::: {.columns}
+::: {.column width="50%"}
+### Chat-only habit
+
+- paste a long block of code, notes, and output into one prompt
+- place both relevant and irrelevant material into the same large context window
+- easy to waste tokens on irrelevant material
 :::
 
-## Full agentic loop adds iteration
+::: {.column width="50%"}
+### Tool-using habit
 
-::: {.callout}
-This is where "chat with tools" becomes a real agent loop:
-each `tool_result` is appended to `messages[]`, then the model is called again until the stop reason changes.
+- search, read, and inspect only the relevant files or docs
+- append the useful pieces as tool results when needed
+- keep the active context window narrower and more task-relevant
+:::
+::::
+
+For real projects, the gain is simple: discover context progressively instead of dumping everything at once.
+
+## Full agentic loop
+
+Search, inspect, append the result to `messages[]`, call the model again, and repeat until it can stop.
+
+<img src="assets/agent-loop-s01.svg" alt="Full agentic loop" style="display:block; width:84%; margin:0 auto;">
+
+## Coding agents on different surfaces {.center .middle}
+
+## Overview of modes in VS Code
+
+:::: {.columns}
+::: {.column width="50%"}
+### Ask
+
+- answer-first loop
+- search workspace context
+- stop after explanation or suggestion
+
+### Agent
+
+- task loop
+- search, edit, run, inspect
+- keep discovering context while the task unfolds
 :::
 
-::: {.full-loop-figure}
-![](assets/agent-loop-s01.svg)
+::: {.column width="50%"}
+### Edit
+
+- legacy / deprecated
+- edit only the chosen files
+- useful when the working set is already clear
+
+### Plan
+
+- read-only planning loop
+- research first, then draft steps and checks
+- useful when touching the wrong thing too early is costly
 :::
+::::
 
-::: {.source-note}
-Adapted from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) and the interactive [s01 The Agent Loop](https://learn.shareai.run/en/s01/), then recreated locally for reliable RevealJS rendering.
-:::
-
-## What changes from mode to mode?
-
-::: {.hero}
-The core difference is not "how smart Copilot is."
-
-It is which tools the model can use, and how much freedom it has to use them.
-:::
-
-::: {.source-note}
-Deck built from official VS Code and GitHub Copilot documentation current on March 9, 2026, reviewed on March 19, 2026.
-:::
-
-## The picker is really a tool picker
-
-::: {.mode-cards}
-::: {.mode-card}
-**Ask**
-
-Read, search, explain, suggest.
-:::
-
-::: {.mode-card}
-**Edit**
-
-Controlled edits in a user-chosen working set.
-:::
-
-::: {.mode-card}
-**Agent**
-
-Search, edit, run commands, iterate, and use external tools.
-:::
-
-::: {.mode-card}
-**Plan**
-
-Research first, then produce a reviewed implementation plan.
-:::
-:::
-
-::: {.callout}
-For an intro audience, this is the clean mental model:
-Ask is answer-first, Edit is bounded editing, Agent is autonomous action, and Plan is read-only planning before action.
-:::
-
-::: {.source-note}
-VS Code now treats Edit as deprecated, so the three modern working styles are mainly Ask, Agent, and Plan. Edit still appears in older tutorials and some current IDE flows.
-:::
-
-## Compare the tool budgets
-
-::: {.matrix-wrap}
-| Default posture | Ask | Edit | Agent | Plan |
-|---|---|---|---|---|
-| Search and read the codebase | Yes. Agentic search and context gathering | Limited. Finds relevant context once | Yes. Repeats searches as needed | Yes. Read-only research |
-| Write files | No direct writes. You apply suggestions | Yes, but in the files you chose | Yes. It can choose files and edit them | No |
-| Run terminal commands or tests | Not the normal loop | No | Yes | No by default |
-| Use MCP or extension tools | Sometimes through tool mentions, but not the main posture | Not the point | Yes | Optional extra tools, but planning starts read-only |
-| Who decides the steps? | Mostly you | You choose files and steer each turn | The agent decides and iterates | The plan agent breaks the work down |
-| Main output | Explanation, options, code blocks | Proposed edits for review | Completed task progress plus edits and tool runs | A plan, checks, and open questions |
-:::
-
-::: {.source-note}
-Intro simplification: this table shows each mode's default posture, not every edge case.
-:::
+The visible difference is autonomy: short answers, bounded edits, or longer task loops.
 
 ## Ask Mode
 
-::: {.mode-layout}
-::: {.mode-copy}
-Ask mode is best when you want understanding before action.
+:::: {.columns}
+::: {.column width="42%"}
+### What it does
 
-- It automatically searches your workspace and gathers context.
-- It is good for explanations, options, and code suggestions.
-- The loop usually stops at "answer" rather than "act."
-- You stay responsible for applying any code changes.
+- read or search
+- explain, compare, suggest
+- stop after the answer
 
-Use Ask for prompts like:
+### Use cases
 
-- "Where is authentication configured in this project?"
-- "Show me two ways to refactor this parser."
-- "Explain this error in plain English."
+- compare `lme4::lmer()` and `glmmTMB::glmmTMB()`
+- explain this `mutate()` error
 :::
 
-::: {.mode-figure}
+::: {.column width="58%"}
 ![](assets/ask-loop.svg){width=100%}
 :::
-:::
+::::
 
 ## Edit Mode
 
-::: {.mode-layout}
-::: {.mode-copy}
-Edit mode is the narrowest editing mode.
+:::: {.columns}
+::: {.column width="42%"}
+`Legacy / deprecated`
 
-- It is useful when you already know the files you want to touch.
-- You choose the working set, then Copilot proposes edits there.
-- It does not run the wider autonomous search-and-fix loop.
-- Official docs mark it as deprecated in favor of Ask or Agent.
+### What it does
 
-Use Edit for prompts like:
+- edit chosen files only
+- keep the working set bounded
+- no wider run-fix loop
 
-- "Rename these props in the two open components."
-- "Update this test file and its fixture, but nothing else."
+### Use cases
+
+- rename a covariate across two helpers
+- update one `testthat` file only
 :::
 
-::: {.mode-figure}
+::: {.column width="58%"}
 ![](assets/edit-loop.svg){width=100%}
 :::
-:::
+::::
 
 ## Agent Mode
 
-::: {.mode-layout}
-::: {.mode-copy}
-Agent mode is the full action loop.
+:::: {.columns}
+::: {.column width="42%"}
+### What it does
 
-- It can search, edit, run commands, inspect problems, and iterate.
-- It is the mode built for multi-step work across several files.
-- It can also use MCP and extension-provided tools when enabled.
-- You still review approvals and results, but the agent does the legwork.
+- search, edit, run, inspect
+- keep discovering context
+- iterate until the task is done
 
-Use Agent for prompts like:
+### Use cases
 
-- "Implement OAuth login and wire the callback route."
-- "Fix the failing tests and update the snapshots."
-- "Refactor this feature and run the test suite."
+- add a Shiny filter panel and wire it in
+- fix failing `testthat` tests and rerun
 :::
 
-::: {.mode-figure}
+::: {.column width="58%"}
 ![](assets/agent-loop.svg){width=100%}
 :::
-:::
+::::
 
 ## Plan Mode
 
-::: {.mode-layout}
-::: {.mode-copy}
-Plan mode is a research-and-breakdown loop.
+:::: {.columns}
+::: {.column width="42%"}
+### What it does
 
-- It uses read-only analysis first.
-- It asks clarifying questions when the task is ambiguous.
-- It produces implementation steps, verification ideas, and open questions.
-- No code changes happen until you approve a handoff to implementation.
+- stay read-only first
+- ask for missing context
+- draft steps, checks, and risks
 
-Use Plan for prompts like:
+### Use cases
 
-- "Plan a migration from REST calls to GraphQL."
-- "Break this feature into implementation and verification steps."
-- "Map the risks before we touch the billing flow."
+- plan a base-to-`ggplot2` migration
+- break a Shiny refactor into stages
+- map risks before touching GxP code
 :::
 
-::: {.mode-figure}
+::: {.column width="58%"}
 ![](assets/plan-loop.svg){width=100%}
 :::
+::::
+
+## Positron
+
+For many RStudio users, Positron is the most natural next surface.
+
+- Start here if you want an IDE that still feels centered on the `Console`, `Variables Pane`, `Plots Pane`, `Help`, and `Data Explorer`.
+- Positron Assistant keeps the VS Code-like surfaces: `Chat`, inline chat, code completions, and quick Console error fixes.
+- The useful extra context is session-native: attached `Interpreter Sessions…`, Console inputs and outputs, in-memory objects in the `Variables Pane`, and the active plot in the `Plots Pane`.
+- From the paperclip menu, you can attach `Files & Folders`, `Interpreter Sessions…`, `Source Control…`, and `Tools`.
+- If your work is exploratory R analysis, Quarto, or Shiny, Positron is often the easiest place to keep the agent grounded in the live session.
+
+## Copilot CLI
+
+Copilot CLI is maximum power in a terminal interface.
+
+- It is the most general surface for file access, shell commands, logs, renders, builds, git, and long-running tasks.
+- Once you trust a folder, it can read, modify, and execute within that directory tree, so this is the place where you impose the least control.
+- It is a strong fit for `renv`, `targets`, Quarto renders, shell-heavy workflows, and repository maintenance.
+- It exposes the more agentic building blocks directly: autopilot mode, trusted directories, tool approvals, custom agents, skills, hooks, and MCP.
+- It is excellent for getting work done, but it is a weaker place to review code carefully; after a substantial task, switch back to the IDE for diff review and cleanup.
+
+## Constructing closed feedback loops
+
+This is the main usage trick with coding agents: give them a loop that can tell them whether they are getting warmer or colder.
+
+- The basic pattern is `edit -> run -> inspect -> fix`.
+- Agents are strongest when the task has a fast local signal: tests, parser checks, linting, Quarto renders, app startup, or a script that reproduces a plot or table.
+- In R work, that can mean `testthat`, a Quarto render, a Shiny launch, or a reproducible analysis script.
+- One practical pattern is test-first: ask for a failing test or a minimal reproduction, then let the agent iterate until it passes.
+- After the code works, use a separate pass for refactoring. Correctness first; abstraction second.
+
+## Turn-based vs task-based
+
+- Turn-based work is still useful for explanation, comparison, and bounded edits.
+- Task-based work starts with a goal, a stop condition, and some boundaries.
+- The agent then keeps the loop until it finishes, gets blocked, or hits a review point.
+- Human effort shifts upward: less syntax steering, more task framing, statistical judgment, and review.
+
+## Workflow building blocks
+
+- **Custom instructions**: reusable repo or team guidance
+- **Skills**: task-specific instructions, scripts, or resources
+- **Subagents / custom agents**: bounded helper roles
+- **Hooks**: automatic checks before or after key events
+
+The names vary by product, but the intuition is stable: instructions shape behavior, skills add know-how, subagents split work, and hooks enforce process.
+
+## Main limitation
+
+**LLMs write at inference speed; humans review at human speed.**
+
+- They are fast at syntax, boilerplate, and glue code.
+- They are still weak at designing abstractions and noticing when the local pattern is the wrong pattern to repeat.
+- Complexity can pile up faster than a human can review it.
+- Wrong retrieval still produces wrong code, just faster.
+
+## Boundaries
+
+- Keep GxP and other regulated workflows behind explicit rules.
+- Choose tool access, model providers, and context attachments deliberately.
+- Review has to remain a real control, not a ritual.
+- Long contexts and repeated loops cost money.
+- Use the agentic loop where the feedback signal is strong enough to buy real leverage.
+
+## Where to start
+
+- Plots, tables, Quarto snippets, and Shiny prototypes.
+- Git operations, repository exploration, package documentation, `renv`, and `targets`.
+- Frame the statistical task clearly; let the model handle more of the syntax.
+- For this audience, the main gain is faster iteration around research tasks that still have a clear human owner.
+
+## Closing
+
+- Use agents as leverage, not as a substitute for judgment.
+- Keep ownership of the statistical question, the boundaries, and the review.
+- Build a workflow through curiosity-led experimentation.
+
+## References
+
+:::: {.columns}
+::: {.column width="50%"}
+Core concepts:
+
+- [learn-claude-code repository](https://github.com/shareAI-lab/learn-claude-code)
+- [learn-claude-code interactive s01](https://learn.shareai.run/en/s01/)
+- [VS Code local agents](https://code.visualstudio.com/docs/copilot/agents/local-agents)
+- [VS Code workspace context](https://code.visualstudio.com/docs/copilot/reference/workspace-context)
+- [January 2026 VS Code update](https://code.visualstudio.com/updates/v1_109)
 :::
 
-## Fast chooser
+::: {.column width="50%"}
+Product surfaces:
 
-::: {.mode-cards}
-::: {.mode-card}
-**Pick Ask when...**
-
-you want explanations, options, or a fast read on the codebase.
+- [Positron Assistant](https://positron.posit.co/assistant)
+- [Positron Chat](https://positron.posit.co/assistant-chat.html)
+- [Positron Completions](https://positron.posit.co/assistant-completions.html)
+- [Positron Getting Started](https://positron.posit.co/assistant-getting-started.html)
+- [GitHub Copilot CLI overview](https://docs.github.com/copilot/concepts/agents/about-copilot-cli)
+- [Using GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli-agents/overview)
+- [About agent skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
+- [About hooks](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-hooks)
 :::
-
-::: {.mode-card}
-**Pick Edit when...**
-
-you want tightly bounded edits in files you already selected.
-:::
-
-::: {.mode-card}
-**Pick Agent when...**
-
-you want the tool-using loop to keep going until the task is done.
-:::
-
-::: {.mode-card}
-**Pick Plan when...**
-
-you want a safe roadmap before any code changes happen.
-:::
-:::
-
-::: {.source-note}
-Sources:
-[learn-claude-code repository](https://github.com/shareAI-lab/learn-claude-code),
-[learn-claude-code interactive s01](https://learn.shareai.run/en/s01/),
-[VS Code workspace context](https://code.visualstudio.com/docs/copilot/reference/workspace-context),
-[VS Code tools](https://code.visualstudio.com/docs/copilot/concepts/tools),
-[VS Code local agents](https://code.visualstudio.com/docs/copilot/agents/local-agents),
-[VS Code planning](https://code.visualstudio.com/docs/copilot/agents/planning),
-[VS Code Copilot feature cheat sheet](https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features),
-[GitHub Docs chat in IDE](https://docs.github.com/en/copilot/how-tos/chat-with-copilot/chat-in-ide)
-:::
+::::
